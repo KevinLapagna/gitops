@@ -1,0 +1,8 @@
+resourceGroup: resourceGroup
+clusterName: clusterName
+galleryName: galleryName
+storageAccountType: Standard_LRS
+vmSize: Standard_B4as_v2
+osDiskDiskSizeGB: 128
+region: westeurope
+zones: [1,2,3]

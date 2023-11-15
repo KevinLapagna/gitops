@@ -1,0 +1,68 @@
+{{- range $zone := $.Values.zones }}
+---
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  labels:
+    machine.openshift.io/cluster-api-cluster: {{ $.Values.clusterName }}
+    machine.openshift.io/cluster-api-machine-role: worker
+    machine.openshift.io/cluster-api-machine-type: worker
+  name: {{ $.Values.clusterName }}-worker-{{ $.Values.region }}{{ $zone }}-{{ $.Release.Name }}
+  namespace: openshift-machine-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: {{ $.Values.clusterName }}
+      machine.openshift.io/cluster-api-machineset: {{ $.Values.clusterName }}-worker-{{ $.Values.region }}{{ $zone }}
+  template:
+    metadata:
+      labels:
+        machine.openshift.io/cluster-api-cluster: {{ $.Values.clusterName }}
+        machine.openshift.io/cluster-api-machine-role: worker
+        machine.openshift.io/cluster-api-machine-type: worker
+        machine.openshift.io/cluster-api-machineset: {{ $.Values.clusterName }}-worker-{{ $.Values.region }}{{ $zone }}
+    spec:
+      lifecycleHooks: {}
+      metadata: {}
+      providerSpec:
+        value:
+          acceleratedNetworking: true
+          apiVersion: machine.openshift.io/v1beta1
+          credentialsSecret:
+            name: azure-cloud-credentials
+            namespace: openshift-machine-api
+          diagnostics: {}
+          image:
+            offer: ""
+            publisher: ""
+            resourceID: /resourceGroups/{{ $.Values.resourceGroup }}/providers/Microsoft.Compute/galleries/{{ $.Values.galleryName }}/images/{{ $.Values.clusterName }}-gen2/versions/latest
+            sku: ""
+            version: ""
+          kind: AzureMachineProviderSpec
+          location: {{ $.Values.region }}
+          managedIdentity: {{ $.Values.clusterName }}-identity
+          metadata:
+            creationTimestamp: null
+          networkResourceGroup: {{ $.Values.resourceGroup }}
+          osDisk:
+            diskSettings: {}
+            diskSizeGB: {{ $.Values.osDiskDiskSizeGB }}
+            managedDisk:
+              securityProfile:
+                diskEncryptionSet: {}
+              storageAccountType: {{ $.Values.storageAccountType }}
+            osType: Linux
+          publicIP: false
+          publicLoadBalancer: {{ $.Values.clusterName }}
+          resourceGroup: {{ $.Values.resourceGroup }}
+          securityProfile:
+            settings: {}
+          spotVMOptions: {}
+          subnet: {{ $.Values.clusterName }}-worker-subnet
+          userDataSecret:
+            name: worker-user-data
+          vmSize: {{ $.Values.vmSize }}
+          vnet: {{ $.Values.clusterName }}-vnet
+          zone: {{ $zone | quote }}
+{{- end }}
