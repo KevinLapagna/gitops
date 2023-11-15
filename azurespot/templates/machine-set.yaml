@@ -14,14 +14,14 @@ spec:
   selector:
     matchLabels:
       machine.openshift.io/cluster-api-cluster: {{ $.Values.clusterName }}
-      machine.openshift.io/cluster-api-machineset: {{ $.Values.clusterName }}-worker-{{ $.Values.region }}{{ $zone }}
+      machine.openshift.io/cluster-api-machineset: {{ $.Values.clusterName }}-worker-{{ $.Values.region }}-{{ $.Release.Name }}-{{ $zone }}
   template:
     metadata:
       labels:
         machine.openshift.io/cluster-api-cluster: {{ $.Values.clusterName }}
         machine.openshift.io/cluster-api-machine-role: worker
         machine.openshift.io/cluster-api-machine-type: worker
-        machine.openshift.io/cluster-api-machineset: {{ $.Values.clusterName }}-worker-{{ $.Values.region }}{{ $zone }}
+        machine.openshift.io/cluster-api-machineset: {{ $.Values.clusterName }}-worker-{{ $.Values.region }}-{{ $.Release.Name }}-{{ $zone }}
     spec:
       lifecycleHooks: {}
       metadata: {}

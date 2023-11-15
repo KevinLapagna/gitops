@@ -3,7 +3,17 @@ entries:
   azurespot:
   - apiVersion: v2
     appVersion: 4.14.1
-    created: "2023-11-15T16:23:55.016567013+01:00"
+    created: "2023-11-15T16:44:22.292121393+01:00"
+    description: Infra defaults for Azure
+    digest: d17686df1a35910f1475bfe123372ed0ac5c1056125a7b24249e8d0426cb5e62
+    name: azurespot
+    type: application
+    urls:
+    - azurespot-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 4.14.1
+    created: "2023-11-15T16:44:22.291823941+01:00"
     description: Infra defaults for Azure
     digest: 99707ea2844b995c8745c958881938337b4a08732d3dfc5d1c86785d033caf2b
     name: azurespot
@@ -11,4 +21,4 @@ entries:
     urls:
     - azurespot-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-15T16:23:55.016202686+01:00"
+generated: "2023-11-15T16:44:22.291315472+01:00"
